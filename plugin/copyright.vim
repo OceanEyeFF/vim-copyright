@@ -1,16 +1,3 @@
-" ====================================================
-"   Copyright (C) 2021  All rights reserved.
-"
-"   Author        : bbxytl
-"   Email         : bbxytl@gmail.com
-"   File Name     : copyright.vim
-"   Last Modified : 2023-08-05 19:21
-"   Describe      : Released under the MIT licence.
-"       Add and update Copyright messag, eg. file name, last modified
-"
-" ====================================================
-
-
 if exists('g:loaded_file_copyright') || &cp
   finish
 endif
@@ -42,6 +29,7 @@ if !exists('g:file_copyright_auto_filetypes')
           \ 'ruby', 'rb', 'rake',
           \ 'uml', 'plantuml',
           \ 'go', 'vim',
+          \ 'md',
         \]
     " let g:file_copyright_auto_filetypes = [ ]
 endif
@@ -59,6 +47,7 @@ let g:file_copyright_comment_prefix_map_default = {
       \"sh":"\#", "shell":"\#",
       \"ruby":"\#", "rb":"\#", "rake":"\#",
       \"uml":"/'", "plantuml":"/'",
+      \"md":"*",
 \}
 
 if !exists('g:file_copyright_comment_prefix_map')
@@ -73,6 +62,7 @@ let g:file_copyright_comment_mid_prefix_map_default = {
       \"sh":"\#", "shell":"\#",
       \"ruby":"\#", "rb":"\#", "rake":"\#",
       \"uml":"'", "plantuml":"'",
+      \"md":"*",
 \}
 
 if !exists('g:file_copyright_comment_mid_prefix_map')
@@ -83,6 +73,7 @@ let g:file_copyright_comment_end_map_default = {
       \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/",
       \"go":"*/",
       \"uml":"'/", "plantuml":"'/",
+      \"md":"*",
 \}
 
 if !exists('g:file_copyright_comment_end_map')
@@ -146,7 +137,7 @@ endfunction
 function! <SID>SetComment(begin)
     call SetCommentFlag()
     let l = -1
-    for ftype in ['sh', 'perl', 'python', 'ruby', 'rb', 'rake', 'vim']
+    for ftype in ['sh', 'perl', 'python', 'ruby', 'rb', 'rake']
       if &filetype == ftype
         let l = 0
         break
@@ -158,7 +149,7 @@ function! <SID>SetComment(begin)
         let l = 2
       endif
     endif
-    call append(l + 1,      g:file_copyright_comment_prefix." ====================================================")
+    call append(l + 1,  g:file_copyright_comment_prefix." ====================================================")
     call append(l + 2,  g:file_copyright_comment_mid_prefix."   Copyright (C) ".strftime("%Y")." ".expand(g:file_copyright_company)." ".expand(g:file_copyright_rights))
     call append(l + 3,  g:file_copyright_comment_mid_prefix)
     call append(l + 4,  g:file_copyright_comment_mid_prefix."   Author        : ".expand(g:file_copyright_name))
@@ -194,7 +185,7 @@ function! <SID>UpdateFileHead(add)
 endfunction
 
 function! <SID>AutoSetFileHead()
-    call <SID>UpdateFileHead(1)
+    call <SID>AddTitle()
 endfunction
 
 function! <SID>UpdateTitle()
@@ -270,6 +261,12 @@ function! <SID>AddTitle()
     " go 文件
     if &filetype == 'go'
         call Title_go()
+        let file_copyright_head_hase = 1
+    endif
+
+    " md 文件
+    if &filetype == 'md'
+        call Title_md()
         let file_copyright_head_hase = 1
     endif
 
@@ -356,10 +353,6 @@ func! Title_c()
     let l = s:file_copyright_head_end_line_no
     echom l
     call append(line(".") + l + 1, "")
-    call append(line(".") + l + 2, "")
-    call append(line(".") + l + 3, "")
-    call setline(l + 3, "\#include <stdio.h>")
-    call append(line(".") + l + 4, "")
 endfunc
 
 func! Title_cpp()
@@ -367,12 +360,6 @@ func! Title_cpp()
     " let l = 9
     let l = s:file_copyright_head_end_line_no
     call append(line(".") + l + 1, "")
-    call append(line(".") + l + 2, "")
-    call append(line(".") + l + 3, "")
-    call setline(l + 3, "\#include <iostream>")
-    call append(line(".") + l + 4, "")
-    call setline(l + 4, "using namespace std;")
-    call append(line(".") + l + 5, "")
     " call setline(l + 5, "\#include \"".expand("%:t:r").".h\"")
     "call append(line(".") + l + 5, "\#include \"".expand("%:t:r").".h\"")
 endfunc
@@ -393,6 +380,13 @@ func! Title_uml()
     " call setline(2, "/' !includeurl https://raw.githubusercontent.com/xuanye/plantuml-style-c4/master/core.puml '/")
     call setline(2, "")
     call setline(3, "@enduml")
+endfunc
+
+func! Title_md()
+    call <SID>SetComment(1)
+    let l = s:file_copyright_head_end_line_no
+    call append(line(".") + l + 1, "</div>")
+    call append(1, "</div>")
 endfunc
 
 
@@ -416,5 +410,5 @@ au BufWritePre * call <SID>AutoUpdate()
 " Shortcuts...
 """"""""""""""""""""""""""
 command! -nargs=0 CopyrightAdd :call <SID>AutoSetFileHead()
-command! -nargs=0 CopyrightUpdate :call <SID>AutoSetFileHead()
+command! -nargs=0 CopyrightUpdate :call <SID>UpdateTitle()
 " vim:set ft=vim sw=2 sts=2  fdm=marker et:

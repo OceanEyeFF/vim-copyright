@@ -9,7 +9,12 @@ Copy the file on your .vim/plug folder.
 ### Vundle
 
 ```
-Bundle "nine2/vim-copyright"
+Bundle "OceanEyeFF/vim-copyright"
+```
+### VimPlug
+
+```
+Plug "OceanEyeFF/vim-copyright"
 ```
 
 ## Useg
@@ -19,7 +24,7 @@ add the config to your .vimrc to set your name / email :
 ```
 let g:file_copyright_company = "your company, default: null"
 let g:file_copyright_rights = "custom_rights, default:'All rights reserved.'"
-let g:file_copyright_name = "your name"
+let g:file_copyright_name = "your nam e"
 let g:file_copyright_email = "your email"
 
 " auto update copyright when save file. Default: 1; 0:close auto.
