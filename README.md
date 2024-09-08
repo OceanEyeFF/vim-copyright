@@ -14,7 +14,7 @@ Bundle "OceanEyeFF/vim-copyright"
 ### VimPlug
 
 ```
-Plug "OceanEyeFF/vim-copyright"
+Plug 'OceanEyeFF/vim-copyright'
 ```
 
 ## Useg
