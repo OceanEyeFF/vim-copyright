@@ -29,7 +29,7 @@ if !exists('g:file_copyright_auto_filetypes')
           \ 'ruby', 'rb', 'rake',
           \ 'uml', 'plantuml',
           \ 'go', 'vim',
-          \ 'md',
+          \ 'markdown', 'md', 'pandoc',
         \]
     " let g:file_copyright_auto_filetypes = [ ]
 endif
@@ -47,7 +47,6 @@ let g:file_copyright_comment_prefix_map_default = {
       \"sh":"\#", "shell":"\#",
       \"ruby":"\#", "rb":"\#", "rake":"\#",
       \"uml":"/'", "plantuml":"/'",
-      \"md":"*",
 \}
 
 if !exists('g:file_copyright_comment_prefix_map')
@@ -62,7 +61,7 @@ let g:file_copyright_comment_mid_prefix_map_default = {
       \"sh":"\#", "shell":"\#",
       \"ruby":"\#", "rb":"\#", "rake":"\#",
       \"uml":"'", "plantuml":"'",
-      \"md":"*",
+      \"md":"", "markdown":"", "pandoc":"",
 \}
 
 if !exists('g:file_copyright_comment_mid_prefix_map')
@@ -73,7 +72,6 @@ let g:file_copyright_comment_end_map_default = {
       \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/",
       \"go":"*/",
       \"uml":"'/", "plantuml":"'/",
-      \"md":"*",
 \}
 
 if !exists('g:file_copyright_comment_end_map')
@@ -265,7 +263,7 @@ function! <SID>AddTitle()
     endif
 
     " md 文件
-    if &filetype == 'md'
+    if &filetype == 'markdown' || &filetype == 'md' ||  &filetype == 'pandoc'
         call Title_md()
         let file_copyright_head_hase = 1
     endif
@@ -385,8 +383,8 @@ endfunc
 func! Title_md()
     call <SID>SetComment(1)
     let l = s:file_copyright_head_end_line_no
-    call append(line(".") + l + 1, "</div>")
-    call append(1, "</div>")
+    call setline(l+1, "--->")
+    call setline(1, "<!---")
 endfunc
 
 

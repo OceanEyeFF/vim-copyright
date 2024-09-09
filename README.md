@@ -49,6 +49,7 @@ let g:file_copyright_auto_filetypes = [
         \ 'ruby', 'rb', 'rake',
         \ 'uml', 'plantuml'
         \ 'go',
+        \ 'markdown', 'md', 'pandoc',
 ]
 ```
 
@@ -62,26 +63,34 @@ let g:file_copyright_auto_filetypes = [
 you can set comment_prefix map:
 
 ```
-let g:file_copyright_comment_prefix_map  = {
-    \"python": "\#", "py":"\#",
-    \"cpp":"/*", "c":"/*", "h":"/*", "hpp":"/*",
-    \"go":"/*",
-    \"vim":"\"", "vim9script": "\#",
-    \"sh":"\#", "shell":"\#",
+
+let g:file_copyright_comment_prefix_map_default = {
+      \"python": "\#", "py":"\#",
+      \"cpp":"/*", "c":"/*", "h":"/*", "hpp":"/*",
+      \"go":"/*",
+      \"vim":"\"", "vim9script": "\#",
+      \"sh":"\#", "shell":"\#",
+      \"ruby":"\#", "rb":"\#", "rake":"\#",
+      \"uml":"/'", "plantuml":"/'",
 \}
 
-let g:file_copyright_comment_mid_prefix_map = {
-    \"python": "\#", "py":"\#",
-    \"cpp":"\#", "c":"\#", "h":"\#", "hpp":"\#",
-    \"go":"\#",
-    \"vim":"\"", "vim9script": "\#",
-    \"sh":"\#", "shell":"\#",
+let g:file_copyright_comment_mid_prefix_map_default = {
+      \"python": "\#", "py":"\#",
+      \"cpp":"\#", "c":"\#", "h":"\#", "hpp":"\#",
+      \"go":"\#",
+      \"vim":"\"", "vim9script": "\#",
+      \"sh":"\#", "shell":"\#",
+      \"ruby":"\#", "rb":"\#", "rake":"\#",
+      \"uml":"'", "plantuml":"'",
+      \"md":"", "markdown":"", "pandoc":"",
 \}
 
-let g:file_copyright_comment_end_map = {
-    \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/",
-    \"go":"*/",
-\
+let g:file_copyright_comment_end_map_default = {
+      \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/",
+      \"go":"*/",
+      \"uml":"'/", "plantuml":"'/",
+\}
+
 ```
 
 or set for filetype(default):
@@ -104,7 +113,7 @@ or set for filetype(default):
 #   Author        : your name
 #   Email         : your email
 #   File Name     : eg.py
-#   Last Modified : 2018-04-06 14:27
+#   Last Modified : 2024-09-09 13:17
 #   Describe      :
 #
 # ====================================================
@@ -118,10 +127,14 @@ or set for filetype(default):
 #
 #   Author        : your name
 #   Email         : your email
-#   File Name     : eg.cpp
+#   File Name     : README.md
 #   Last Modified : 2018-04-06 14:27
 #   Describe      :
 #
 # ====================================================*/
 ```
+
+
+
+
 
