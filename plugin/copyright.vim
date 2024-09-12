@@ -1,3 +1,14 @@
+" ====================================================
+"   Copyright (C) 2024  All rights reserved.
+"
+"   Author        : OceanEyeFF
+"   Email         : fdch00@163.com
+"   File Name     : copyright.vim
+"   Last Modified : 2024-09-12 10:01
+"   Describe      : 
+"
+" ====================================================
+
 if exists('g:loaded_file_copyright') || &cp
   finish
 endif
@@ -165,6 +176,7 @@ function! <SID>UpdateFileHead(add)
     let curline = line(".")
     let curcol = col(".")
     " echom "AutoSetFileHead" | echo curline | echo curcol
+    normal zr
     call SetCommentFlag()
     let n = 1
     let regline = '^'.g:file_copyright_comment_mid_prefix.'\s*\S*Last\sModified\s*:\s*\S*.*$'
@@ -173,6 +185,7 @@ function! <SID>UpdateFileHead(add)
       if line =~ regline
         call <SID>UpdateTitle()
         call cursor(curline, curcol)
+        normal zm
         return
       endif
     endfor
@@ -180,6 +193,7 @@ function! <SID>UpdateFileHead(add)
     if a:add isnot 0
       call <SID>SetComment(0)
     endif
+        normal zm
 endfunction
 
 function! <SID>AutoSetFileHead()
@@ -410,3 +424,5 @@ au BufWritePre * call <SID>AutoUpdate()
 command! -nargs=0 CopyrightAdd :call <SID>AutoSetFileHead()
 command! -nargs=0 CopyrightUpdate :call <SID>UpdateTitle()
 " vim:set ft=vim sw=2 sts=2  fdm=marker et:
+"
+"
