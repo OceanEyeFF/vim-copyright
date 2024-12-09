@@ -4,7 +4,7 @@
 "   Author        : OceanEyeFF
 "   Email         : fdch00@163.com
 "   File Name     : copyright.vim
-"   Last Modified : 2024-12-09 21:20
+"   Last Modified : 2024-12-09 21:25
 "   Describe      : 
 "
 " ====================================================
@@ -80,7 +80,7 @@ if !exists('g:file_copyright_comment_mid_prefix_map')
 endif
 
 let g:file_copyright_comment_end_map_default = {
-      \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/", "cs":"*/"
+      \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/", "cs":"*/",
       \"go":"*/",
       \"uml":"'/", "plantuml":"'/",
 \}
