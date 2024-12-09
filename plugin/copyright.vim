@@ -4,7 +4,7 @@
 "   Author        : OceanEyeFF
 "   Email         : fdch00@163.com
 "   File Name     : copyright.vim
-"   Last Modified : 2024-09-12 10:01
+"   Last Modified : 2024-12-09 21:20
 "   Describe      : 
 "
 " ====================================================
@@ -36,7 +36,7 @@ endif
 if !exists('g:file_copyright_auto_filetypes')
     let g:file_copyright_auto_filetypes = [
           \ 'sh', 'plx', 'pl', 'pm', 'py', 'python',
-          \ 'h', 'hpp', 'c', 'cpp', 'java',
+          \ 'h', 'hpp', 'c', 'cpp', 'java', 'cs',
           \ 'ruby', 'rb', 'rake',
           \ 'uml', 'plantuml',
           \ 'go', 'vim',
@@ -52,7 +52,7 @@ endif
 
 let g:file_copyright_comment_prefix_map_default = {
       \"python": "\#", "py":"\#",
-      \"cpp":"/*", "c":"/*", "h":"/*", "hpp":"/*",
+      \"cpp":"/*", "c":"/*", "h":"/*", "hpp":"/*", "cs":"\#",
       \"go":"/*",
       \"vim":"\"", "vim9script": "\#",
       \"sh":"\#", "shell":"\#",
@@ -66,7 +66,7 @@ endif
 
 let g:file_copyright_comment_mid_prefix_map_default = {
       \"python": "\#", "py":"\#",
-      \"cpp":"\#", "c":"\#", "h":"\#", "hpp":"\#",
+      \"cpp":"\#", "c":"\#", "h":"\#", "hpp":"\#", "cs":"\#",
       \"go":"\#",
       \"vim":"\"", "vim9script": "\#",
       \"sh":"\#", "shell":"\#",
@@ -80,7 +80,7 @@ if !exists('g:file_copyright_comment_mid_prefix_map')
 endif
 
 let g:file_copyright_comment_end_map_default = {
-      \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/",
+      \"cpp":"*/", "c":"*/", "h":"*/", "hpp":"*/", "cs":"*/"
       \"go":"*/",
       \"uml":"'/", "plantuml":"'/",
 \}
@@ -270,6 +270,12 @@ function! <SID>AddTitle()
         let file_copyright_head_hase = 1
     endif
 
+    " CSharp 文件
+    if &filetype == "cs" && !hf || expand("%:e") == "cs"
+        call Title_cs()
+        let file_copyright_head_hase = 1
+    endif
+
     " go 文件
     if &filetype == 'go'
         call Title_go()
@@ -368,6 +374,15 @@ func! Title_c()
 endfunc
 
 func! Title_cpp()
+    call <SID>SetComment(1)
+    " let l = 9
+    let l = s:file_copyright_head_end_line_no
+    call append(line(".") + l + 1, "")
+    " call setline(l + 5, "\#include \"".expand("%:t:r").".h\"")
+    "call append(line(".") + l + 5, "\#include \"".expand("%:t:r").".h\"")
+endfunc
+
+func! Title_cs()
     call <SID>SetComment(1)
     " let l = 9
     let l = s:file_copyright_head_end_line_no
