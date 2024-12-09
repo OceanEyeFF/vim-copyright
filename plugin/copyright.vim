@@ -4,7 +4,7 @@
 "   Author        : OceanEyeFF
 "   Email         : fdch00@163.com
 "   File Name     : copyright.vim
-"   Last Modified : 2024-12-09 21:25
+"   Last Modified : 2024-12-09 21:28
 "   Describe      : 
 "
 " ====================================================
@@ -52,7 +52,7 @@ endif
 
 let g:file_copyright_comment_prefix_map_default = {
       \"python": "\#", "py":"\#",
-      \"cpp":"/*", "c":"/*", "h":"/*", "hpp":"/*", "cs":"\#",
+      \"cpp":"/*", "c":"/*", "h":"/*", "hpp":"/*", "cs":"/*",
       \"go":"/*",
       \"vim":"\"", "vim9script": "\#",
       \"sh":"\#", "shell":"\#",
